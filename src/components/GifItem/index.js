@@ -69,7 +69,7 @@ const GifItem = ({ data }) => {
         <div className={classes.modalView}>
           <div className={classes.faded} />
           <CloseIcon className={classes.closeIcon} onClick={onToggleSelectImage} />
-          <img className={classes.modalImage} src={images.original.url} alt={`${slug}-full-screen`} />
+          <img className={classes.modalImage} src={images.downsized.url} alt={`${slug}-full-screen`} />
         </div>
       )}
     </div>
