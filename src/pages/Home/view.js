@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import InfiniteScroll from "react-infinite-scroll-component";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import GifList from "../../components/GifList";
@@ -11,30 +11,27 @@ const HomeView = ({ loading, error, data, onGetMore }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      {loading && <LinearProgress className={classes.loading} />}
+    <InfiniteScroll
+      dataLength={data.length} //This is important field to render the next data
+      next={onGetMore}
+      hasMore={true}
+      scrollThreshold="90%"
+    >
+      <div className={classes.root}>
+        {loading && <LinearProgress className={classes.loading} />}
 
-      <GifList data={data} />
+        <GifList data={data} onGetMore={onGetMore} />
 
-      <Button
-        className={classes.getMoreBtn}
-        variant="contained"
-        color="primary"
-        disabled={loading}
-        onClick={onGetMore}
-      >
-        Get more
-      </Button>
-
-      <Snackbar
-        open={error}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <Alert severity="error">
-          Something went wrong. Please try again later.
-        </Alert>
-      </Snackbar>
-    </div>
+        <Snackbar
+          open={error}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert severity="error">
+            Something went wrong. Please try again later.
+          </Alert>
+        </Snackbar>
+      </div>
+    </InfiniteScroll>
   );
 };
 
