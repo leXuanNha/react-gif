@@ -42,27 +42,11 @@ describe("Trending Giphy List View", () => {
     });
   });
 
-  it("should render `Get more` button.", async () => {
-    expect(
-      screen.getByRole("button", {
-        name: "Get more",
-      })
-    ).toBeInTheDocument();
-  });
-
-  it('should fetch giphy when click to Get more button', async() => {
-    const getMoreBtn = screen.getByRole('button', {
-      name: "Get more"
-    });
-
-    fireEvent.click(getMoreBtn);
-
-    await waitFor(() => expect(getTrendingGif).toBeCalledTimes(2));
-
-    const params = getTrendingGif.mock.calls[1][0];
-    const { limit, offset } = params;
-
-    expect(limit).toBe(LIMIT);
-    expect(offset).toBe(mockGiphy.pagination.count + mockGiphy.pagination.offset);
+  it("should render full screen image when click to card image", async() => {
+    const item = mockGiphy.data[0];
+    const cardImage = screen.getAllByAltText(item.slug)[0]
+    fireEvent.click(cardImage);
+    const modal = screen.getAllByAltText(`${item.slug}-full-screen`)[0];
+    expect(modal).toHaveAttribute('src', item.images.original.url);
   });
 });

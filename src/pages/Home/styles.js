@@ -12,10 +12,6 @@ const useStyles = makeStyles({
     left: 0,
     width: "100%",
   },
-  getMoreBtn: {
-    marginTop: 40,
-    marginBottom: 40,
-  },
 });
 
 export default useStyles;
